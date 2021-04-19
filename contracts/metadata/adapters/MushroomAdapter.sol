@@ -26,18 +26,18 @@ contract MushroomAdapter is Initializable, MetadataAdapter {
         _setupRole(LIFESPAN_MODIFY_REQUEST_ROLE, forwardActionsFrom_);
     }
 
-    function getMushroomData(uint256 index, bytes calldata data) external override view returns (MushroomLib.MushroomData memory) {
+    function getMushroomData(uint256 index, bytes calldata /* data */) external override view returns (MushroomLib.MushroomData memory) {
         MushroomLib.MushroomData memory mData = mushroomNft.getMushroomData(index);
         return mData;
     }
 
     // Mushrooms can always be staked
-    function isStakeable(uint256 nftIndex) external override view returns (bool) {
+    function isStakeable(uint256 /* nftIndex */) external override view returns (bool) {
         return true;
     }
 
     // All Mushrooms are burnable
-    function isBurnable(uint256 index) external override view returns (bool) {
+    function isBurnable(uint256 /* index */) external override view returns (bool) {
         return true;
     }
 

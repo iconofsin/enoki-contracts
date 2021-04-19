@@ -2,19 +2,19 @@
 // Should be able to upgrade EnokiGeyser
 // Should be able to send proxyAdmin to DAO
 
-import {ethers} from "@nomiclabs/buidler";
+import {ethers} from "hardhat";
 import {expect} from "chai";
 import {BigNumber, constants, Contract, providers, Signer, utils} from "ethers";
 import {daysToSeconds, LaunchConfig, WHALES} from "../scripts/config/launchConfig";
 import {deployCore} from "../scripts/deploy/deployCore";
 import {Operation} from "../scripts/deploy/Multisig";
 import {EnokiSystem} from "../scripts/systems/EnokiSystem";
-import {getCurrentTimestamp, increaseTime} from "../scripts/timeUtils";
-import SporePresale from "../artifacts/SporePresale.json";
-import SporeToken from "../artifacts/SporeToken.json";
-import IERC20 from "../artifacts/IERC20.json";
+import {getCurrentTimestamp, increaseTime} from "../scripts/utils/timeUtils";
+import SporePresale from "../artifacts/contracts/SporePresale.sol/SporePresale.json";
+import SporeToken from "../artifacts/contracts/SporeToken.sol/SporeToken.json";
+import IERC20 from "../artifacts/@openzeppelin/contracts/token/ERC20/IERC20.sol/IERC20.json";
 import UniswapV2Router from "../dependency-artifacts/uniswap/UniswapV2Router02.json";
-import {json} from "@nomiclabs/buidler/internal/core/params/argumentTypes";
+import {json} from "hardhat/internal/core/params/argumentTypes";
 
 const presaleIface = new utils.Interface(SporePresale.abi);
 const sporeTokenIface = new utils.Interface(SporeToken.abi);

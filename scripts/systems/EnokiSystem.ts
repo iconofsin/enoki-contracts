@@ -17,29 +17,29 @@ import ethers, {
 } from "ethers";
 import {expect} from "chai";
 
-import SporeToken from "../../artifacts/SporeToken.json";
-import SporePresale from "../../artifacts/SporePresale.json";
+import SporeToken from "../../artifacts/contracts/SporeToken.sol/SporeToken.json";
+import SporePresale from "../../artifacts/contracts/SporePresale.sol/SporePresale.json";
 
-import GeyserEscrow from "../../artifacts/GeyserEscrow.json";
+import GeyserEscrow from "../../artifacts/contracts/GeyserEscrow.sol/GeyserEscrow.json";
 
-import EthVesting from "../../artifacts/EthVesting.json";
-import BannedContractList from "../../artifacts/BannedContractList.json";
-import SporePoolEth from "../../artifacts/SporePoolEth.json";
+import EthVesting from "../../artifacts/contracts/EthVesting.sol/EthVesting.json";
+import BannedContractList from "../../artifacts/contracts/BannedContractList.sol/BannedContractList.json";
+import SporePoolEth from "../../artifacts/contracts/SporePoolEth.sol/SporePoolEth.json";
 
-import TokenVesting from "../../artifacts/TokenVesting.json";
-import PaymentSplitter from "../../artifacts/PaymentSplitter.json";
-import SporePool from "../../artifacts/SporePool.json";
-import MushroomFactory from "../../artifacts/MushroomFactory.json";
-import MushroomNFT from "../../artifacts/MushroomNFT.json";
-import RateVote from "../../artifacts/RateVote.json";
+import TokenVesting from "../../artifacts/contracts/TokenVesting.sol/TokenVesting.json";
+import PaymentSplitter from "../../artifacts/contracts/PaymentSplitter.sol/PaymentSplitter.json";
+import SporePool from "../../artifacts/contracts/SporePool.sol/SporePool.json";
+import MushroomFactory from "../../artifacts/contracts/MushroomFactory.sol/MushroomFactory.json";
+import MushroomNFT from "../../artifacts/contracts/MushroomNFT.sol/MushroomNFT.json";
+import RateVote from "../../artifacts/contracts/RateVote.sol/RateVote.json";
 
 import Agent from "../../dependency-artifacts/aragon/Agent.json";
 import MiniMeToken from "../../dependency-artifacts/aragon/MiniMeToken.json";
 
-import EnokiGeyser from "../../artifacts/EnokiGeyser.json";
-import Mission from "../../artifacts/Mission.json";
-import MetadataResolver from "../../artifacts/MetadataResolver.json";
-import MushroomAdapter from "../../artifacts/MushroomAdapter.json";
+import EnokiGeyser from "../../artifacts/contracts/EnokiGeyser.sol/EnokiGeyser.json";
+import Mission from "../../artifacts/contracts/Mission.sol/Mission.json";
+import MetadataResolver from "../../artifacts/contracts/metadata/MetadataResolver.sol/MetadataResolver.json";
+import MushroomAdapter from "../../artifacts/contracts/metadata/adapters/MushroomAdapter.sol/MushroomAdapter.json";
 
 import ProxyAdmin from "../../dependency-artifacts/open-zeppelin-upgrades/ProxyAdmin.json";
 import AdminUpgradeabilityProxy from "../../dependency-artifacts/open-zeppelin-upgrades/AdminUpgradeabilityProxy.json";
@@ -47,8 +47,8 @@ import AdminUpgradeabilityProxy from "../../dependency-artifacts/open-zeppelin-u
 import UniswapV2Pair from "../../dependency-artifacts/uniswap/UniswapV2Pair.json";
 import UniswapV2Router from "../../dependency-artifacts/uniswap/UniswapV2Router02.json";
 import UniswapV2Factory from "../../dependency-artifacts/uniswap/UniswapV2Factory.json";
-import MushroomLifespanMock from "../../artifacts/MushroomLifespanMock.json";
-import CentralizedRateVote from "../../artifacts/CentralizedRateVote.json";
+import MushroomLifespanMock from "../../artifacts/contracts/test/MushroomLifespanMock.sol/MushroomLifespanMock.json";
+import CentralizedRateVote from "../../artifacts/contracts/CentralizedRateVote.sol/CentralizedRateVote.json";
 
 import whitelist from "../config/whitelist";
 
@@ -196,7 +196,7 @@ export class EnokiSystem {
         provider: providers.Provider,
         deployer: Signer,
         flags: LaunchFlags,
-        file: string
+        file: EnokiAddresses
     ): EnokiSystem {
         const enoki = new EnokiSystem(config, provider, deployer, flags);
 

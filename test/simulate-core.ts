@@ -32,14 +32,25 @@
 
 // Dev fund should successfully lock initial liquidity
 
-import {ethers} from "@nomiclabs/buidler";
-import {expect} from "chai";
-import {BigNumber, constants, Contract, providers, Signer, utils} from "ethers";
-import {daysToSeconds, LaunchConfig, WHALES} from "../scripts/config/launchConfig";
-import {deployCore} from "../scripts/deploy/deployCore";
-import {Operation} from "../scripts/deploy/Multisig";
-import {EnokiSystem} from "../scripts/systems/EnokiSystem";
-import {getCurrentTimestamp, increaseTime} from "../scripts/utils/timeUtils";
+import chai from 'chai'
+import { solidity } from 'ethereum-waffle'
+
+import { ethers } from "hardhat";
+//import { expect } from "chai";
+import { BigNumber, constants, Contract, providers, Signer, utils } from "ethers";
+import { daysToSeconds, LaunchConfig, WHALES } from "../scripts/config/launchConfig";
+import { deployCore } from "../scripts/deploy/deployCore";
+import { Operation } from "../scripts/deploy/Multisig";
+import { EnokiSystem } from "../scripts/systems/EnokiSystem";
+import { getCurrentTimestamp, increaseTime } from "../scripts/utils/timeUtils";
+
+import { IERC20 } from "../typechain"
+ 
+const ERC20Artifacts = require('../artifacts/@openzeppelin/contracts/token/ERC20/ERC20.sol/ERC20.json');
+const ERC20abi = ERC20Artifacts.abi;
+
+chai.use(solidity)
+const { expect } = chai
 
 import {
     presaleIface,
@@ -62,7 +73,7 @@ describe("Simulate Core", function () {
         this.timeout(0);
         jsonRpcProvider = ethers.provider;
         [first, deployer, third] = await ethers.getSigners();
-        const deploy = await deployCore(jsonRpcProvider, deployer, {testmode: true});
+        const deploy = await deployCore(jsonRpcProvider, deployer, { testmode: true });
         enoki = deploy.enoki;
         config = deploy.config;
 
@@ -72,9 +83,11 @@ describe("Simulate Core", function () {
             value: "100000000000000000000000",
         });
     });
+
     it("Presale should not be started after deploy", async function () {
         expect(await enoki.presale.presaleStart()).to.be.equal(false);
     });
+
     it("Should not allow presale buys before presale start", async function () {
         await expect(
             enoki.deployer.sendTransaction({
@@ -90,6 +103,7 @@ describe("Simulate Core", function () {
             data: presaleIface.encodeFunctionData("startPresale"),
         });
     });
+
     it("Should allow presale buys from whilelist accounts", async function () {
         const balance = await jsonRpcProvider.getBalance(
             enoki.devFundPaymentSplitter.address
@@ -106,6 +120,7 @@ describe("Simulate Core", function () {
             value: utils.parseEther("1"),
         });
     });
+
     it("Should not allow presale buys from not-whilelist accounts", async function () {
         const isWhitelisted = await enoki.presale.whitelist(await third.getAddress());
         expect(isWhitelisted).to.be.equal(false);
@@ -117,6 +132,7 @@ describe("Simulate Core", function () {
             })
         ).to.be.reverted;
     });
+
     it("Payment splitter should recieve ETH on presale buy", async function () {
         const balance = await jsonRpcProvider.getBalance(
             enoki.devFundPaymentSplitter.address
@@ -397,8 +413,11 @@ describe("Simulate Core", function () {
         expect(lpTokenAddress, "lpTokenAddress").to.not.be.equal(constants.AddressZero);
 
         // Transfer LP token for DAO TokenVesting
-        console.log("Transfer LP token to DAO TokenVesting..");
-        const lpToken = new Contract(lpTokenAddress, IERC20.abi, deployer);
+        console.log("Transfer LP token to DAO TokenVesting...");
+        //const lpToken = new Contract(lpTokenAddress, IERC20.abi, deployer);
+        
+        const lpToken = new ethers.Contract(lpTokenAddress, ERC20abi, deployer);
+
 
         const balance = await lpToken.balanceOf(
             enoki.devMultisig.ethersContract.address
@@ -542,7 +561,8 @@ describe("Simulate Core", function () {
 
         console.log("lpTokenAddress", lpTokenAddress);
 
-        const lpToken = new Contract(lpTokenAddress, IERC20.abi, deployer);
+        //const lpToken = new Contract(lpTokenAddress, IERC20.abi, deployer);
+        const lpToken = new ethers.Contract(lpTokenAddress, ERC20abi, deployer);
 
         console.log("Check lpTokenVesting before..");
         const lpBalanceBefore = await lpToken.balanceOf(enoki.lpTokenVesting.address);

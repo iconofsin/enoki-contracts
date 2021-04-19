@@ -1,0 +1,29 @@
+git rm yarn.lock
+npm i -D hardhat
+npm remove @nomiclabs/buidler
+npm i -D @typechain/ethers-v5@6.0.5
+npm i -D @nomiclabs/hardhat-ethers
+npm remove @nomiclabs/buidler-ethers
+npm i -D @nomiclabs/hardhat-waffle
+npm remove @nomiclabs/buidler-waffle
+npm i -D hardhat-typechain
+npm remove truffle-typings
+npm i -D ts-generator chai-as-promised typechain
+npm i @nomiclabs/hardhat-etherscan
+npm remove @nomiclabs/buidler-etherscan
+npm remove truffle
+npm remove @openzeppelin/buidler-upgrades
+npm i @openzeppelin/hardhat-upgrades
+npm remove ganache-core
+npm remove jest ts-jest web3
+npm remove @types/jest
+git rm truffle-config.js
+git mv buidler.config.ts hardhat.config.ts
+npm i -D hardhat-gas-reporter solidity-coverage
+npm i -D @typechain/hardhat
+npm i -D @types/chai-as-promised
+contracts/MerkleDistributor.sol: bumped compiler pragma to 0.6.12
+commented out variables (where possible without breaking docstrings) to suppress some of the "unused variable" warnings
+fixed dependencies and code in multiple files to at least be able to run tests
+test fail, but that's for another stint
+logged 2.5hrs

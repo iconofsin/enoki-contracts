@@ -36,7 +36,7 @@ Farm with single user
     - Make sure mushie is burned
 */
 
-import {ethers} from "@nomiclabs/buidler";
+import {ethers} from "hardhat";
 import {expect} from "chai";
 import {BigNumber, constants, Contract, providers, Signer, utils} from "ethers";
 import {

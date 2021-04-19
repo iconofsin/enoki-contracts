@@ -19,7 +19,7 @@ contract SporePoolEth is SporePool {
 
     function initialize(
         address _sporeToken,
-        address _stakingToken,
+        address /* _stakingToken */,
         address _mission,
         address _bannedContractList,
         address _devRewardAddress,
@@ -53,7 +53,7 @@ contract SporePoolEth is SporePool {
     }
 
     /* ========== MUTATIVE FUNCTIONS ========== */
-    function stake(uint256 amount) external override nonReentrant defend(bannedContractList) whenNotPaused updateReward(msg.sender) {
+    function stake(uint256 /* amount*/ ) external override nonReentrant defend(bannedContractList) whenNotPaused updateReward(msg.sender) {
         revert("Use stakeEth function for ETH variant");
     }
 
